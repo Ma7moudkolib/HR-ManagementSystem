@@ -35,6 +35,9 @@ namespace Repository.DatabaseContext
             modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
             modelBuilder.ApplyConfiguration(new DepartmentConfiguration());
+            modelBuilder.ApplyConfiguration(new LeaveRequestConfiguration());
+            modelBuilder.ApplyConfiguration(new LeaveBalanceConfiguration());
+            modelBuilder.ApplyConfiguration(new LeaveTypeConfiguration());
         }
         public DbSet<Company>? Companies { get; set; }
         public DbSet<Employee>? Employees { get; set; }
