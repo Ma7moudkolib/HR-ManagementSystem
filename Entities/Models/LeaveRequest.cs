@@ -3,12 +3,12 @@ namespace Entities.Models
 {
     public class LeaveRequest
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
-        public Guid EmployeeId { get; set; }
+        public int EmployeeId { get; set; }
         public Employee Employee { get; set; }
 
-        public Guid LeaveTypeId { get; set; }
+        public int LeaveTypeId { get; set; }
         public LeaveType LeaveType { get; set; }
 
         public DateTime StartDate { get; set; }

@@ -20,7 +20,7 @@ namespace Repository
             .OrderBy(c=>c.Name)
             .ToListAsync();
 
-        public async Task<Company?> GetCompany(Guid companyId, bool trackChange) =>
+        public async Task<Company?> GetCompany(int companyId, bool trackChange) =>
           await FindByCondition(c => c.Id.Equals(companyId), trackChange).SingleOrDefaultAsync();
             
     }

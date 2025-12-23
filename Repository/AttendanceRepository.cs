@@ -18,14 +18,14 @@ namespace Repository
         public async Task<IEnumerable<Attendance?>> GetAllAttendancesAsync(bool trackChanges) =>
             await FindAll(trackChanges).ToListAsync();
 
-        public async Task<IEnumerable<Attendance?>> GetAttendanceByEmployeeIdAsync(Guid employeeId, bool trackChanges) =>
+        public async Task<IEnumerable<Attendance?>> GetAttendanceByEmployeeIdAsync(int employeeId, bool trackChanges) =>
            await FindByCondition(attendance => attendance.EmployeeId.Equals(employeeId), trackChanges).ToListAsync();
 
-        public Task<Attendance?> GetAttendanceByEmployeeIdForDayAsync(Guid employeeId, DateTime date, bool trackChanges) =>
+        public Task<Attendance?> GetAttendanceByEmployeeIdForDayAsync(int employeeId, DateTime date, bool trackChanges) =>
            FindByCondition(attendance => attendance.EmployeeId.Equals(employeeId)
             && attendance.CheckIn.Date == date.Date, trackChanges).FirstOrDefaultAsync();
 
-        public async Task<IEnumerable<Attendance?>> GetAttendanceByEmployeeIdForMonthAsync(Guid employeeId, int month, int year, bool trackChanges) =>
+        public async Task<IEnumerable<Attendance?>> GetAttendanceByEmployeeIdForMonthAsync(int employeeId, int month, int year, bool trackChanges) =>
            await FindByCondition(attendance => attendance.EmployeeId.Equals(employeeId)
             && attendance.CheckIn.Month == month
             && attendance.CheckIn.Year == year, trackChanges)

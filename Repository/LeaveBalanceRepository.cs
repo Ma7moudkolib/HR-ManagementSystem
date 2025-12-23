@@ -8,12 +8,12 @@ namespace Repository
     public class LeaveBalanceRepository : RepositoryBase<LeaveBalance>, ILeaveBalanceRepository
     {
         public LeaveBalanceRepository(RepositoryContext repositoryContext): base(repositoryContext) { }
-        public async Task<LeaveBalance?> GetBalanceAsync(Guid employeeId, Guid leaveTypeId, bool trackChange)
+        public async Task<LeaveBalance?> GetBalanceAsync(int employeeId, int leaveTypeId, bool trackChange)
             =>await FindByCondition(lb => lb.EmployeeId == employeeId && lb.LeaveTypeId == leaveTypeId, trackChange)
             .FirstOrDefaultAsync();
 
 
-        public async Task<IEnumerable<LeaveBalance>> GetBalancesForEmployeeAsync(Guid employeeId, bool trackChange) => await
+        public async Task<IEnumerable<LeaveBalance>> GetBalancesForEmployeeAsync(int employeeId, bool trackChange) => await
             FindByCondition(lb => lb.EmployeeId == employeeId, trackChange)
             .ToListAsync();
     }

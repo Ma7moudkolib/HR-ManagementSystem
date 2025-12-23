@@ -4,7 +4,7 @@ namespace Contracts
 {
     public interface ILeaveBalanceRepository
     {
-        Task<LeaveBalance?> GetBalanceAsync(Guid employeeId, Guid leaveTypeId,bool trackChange);
-        Task<IEnumerable<LeaveBalance>> GetBalancesForEmployeeAsync(Guid employeeId, bool trackChange);
+        Task<LeaveBalance?> GetBalanceAsync(int employeeId, int leaveTypeId,bool trackChange);
+        Task<IEnumerable<LeaveBalance>> GetBalancesForEmployeeAsync(int employeeId, bool trackChange);
     }
 }

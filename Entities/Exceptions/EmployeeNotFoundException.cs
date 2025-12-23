@@ -2,7 +2,7 @@
 {
     public class EmployeeNotFoundException : NotFoundException
     {
-        public EmployeeNotFoundException(Guid employeeId) 
+        public EmployeeNotFoundException(int employeeId) 
             : base($"The Employee With id: {employeeId} doesn't exist in the database. ")
         {
         }

@@ -16,13 +16,13 @@ namespace CompanyEmployees.Presentation.Controllers
         }
 
         [HttpGet("status/{employeeId}")]
-        public async Task<IActionResult> GetEmployeeLeaves(Guid employeeId)
+        public async Task<IActionResult> GetEmployeeLeaves(int employeeId)
         {
             var leaves = await _serviceManager.leaveService.GetEmployeeLeavesAsync(employeeId);
             return Ok(leaves);
         }
         [HttpGet("balances/{employeeId}")]
-        public async Task<IActionResult> GetEmployeeLeaveBalances(Guid employeeId)
+        public async Task<IActionResult> GetEmployeeLeaveBalances(int employeeId)
         {
             var balances = await _serviceManager.leaveService.GetEmployeeLeaveBalancesAsync(employeeId);
             return Ok(balances);
@@ -36,7 +36,7 @@ namespace CompanyEmployees.Presentation.Controllers
             return Ok(result.message);
         }
         [HttpPost("approve/{leaveRequestId}")]
-        public async Task<IActionResult> ApproveLeaveRequest(Guid leaveRequestId)
+        public async Task<IActionResult> ApproveLeaveRequest(int leaveRequestId)
         {
             var result = await _serviceManager.leaveService.ApproveLeaveAsync(leaveRequestId);
             if (!result.Success)
@@ -44,7 +44,7 @@ namespace CompanyEmployees.Presentation.Controllers
             return Ok(result.message);
         }
         [HttpPost("reject/{leaveRequestId}")]
-        public async Task<IActionResult> RejectLeaveRequest(Guid leaveRequestId)
+        public async Task<IActionResult> RejectLeaveRequest(int leaveRequestId)
         {
             var result = await _serviceManager.leaveService.RejectLeaveAsync(leaveRequestId);
             if (!result.Success)

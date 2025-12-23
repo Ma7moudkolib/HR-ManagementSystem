@@ -6,7 +6,7 @@ namespace Entities.Models
     public class Employee
     {
         [Column("EmployeeId")]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         [Required(ErrorMessage = "Employee name is a required field.")]
         [MaxLength(30, ErrorMessage = "Maximum length for the Name is 30 characters.")]
         public string? Name { get; set; }
@@ -20,10 +20,10 @@ namespace Entities.Models
         public DateTime? HireDate { get; set; }
         public decimal Salary { get; set; }
         [ForeignKey(nameof(Company))]
-        public Guid CompanyId { get; set; }
+        public int CompanyId { get; set; }
         public Company? Company { get; set; }
         [ForeignKey(nameof(Department))]
-        public Guid DepartmentId { get; set; }
+        public int DepartmentId { get; set; }
         public Department? Department { get; set; }
         public ICollection<Attendance> attendance { get; set; }
     }

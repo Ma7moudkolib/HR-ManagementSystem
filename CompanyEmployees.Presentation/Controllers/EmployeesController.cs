@@ -12,31 +12,31 @@ namespace CompanyEmployees.Presentation.Controllers
         public EmployeesController(IServiceManager serviceManager)=> _serviceManager = serviceManager;
 
         [HttpGet]
-        public async Task<IActionResult> GetEmployeesForCompany(Guid companyId)
+        public async Task<IActionResult> GetEmployeesForCompany(int companyId)
         {
             var employees = await _serviceManager.employeeService.GetEmployees(companyId, false);
             return Ok(employees);
         }
-        [HttpGet("{id:guid}")]
-        public async Task<IActionResult> GetEmployeeForCompany(Guid companyId , Guid id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetEmployeeForCompany(int companyId , int id)
         {
             var employee =await _serviceManager.employeeService.GetEmployee(companyId,id,false);
             return Ok(employee);
         }
         [HttpPost]
-        public async Task<IActionResult> CreateEmployeeForCompany( Guid companyId , [FromBody] EmployeeForCreationDto employee)
+        public async Task<IActionResult> CreateEmployeeForCompany( int companyId , [FromBody] EmployeeForCreationDto employee)
         {
             var employeeResult = await _serviceManager.employeeService.CreateEmployeeForCompany(companyId, employee, false);
             return CreatedAtRoute("GetEmployeeForCompany",new {companyId , employeeResult.Id},employeeResult);
         }
-        [HttpDelete("{id:guid}")]
-        public async Task<IActionResult> DeleteEmployeeForCompany(Guid companyId, Guid id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteEmployeeForCompany(int companyId, int id)
         {
            await _serviceManager.employeeService.DeleteEmployeeForCompany(companyId, id, false);
             return NoContent();
         }
-        [HttpPut("{id:guid}")]
-        public async Task<IActionResult> UpdateEmployeeForCompany(Guid companyId, Guid id, [FromBody] EmployeeForUpdateDto employee)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateEmployeeForCompany(int companyId, int id, [FromBody] EmployeeForUpdateDto employee)
         {
             if (employee is null)
                 return BadRequest("EmployeeForUpdateDto object is null");

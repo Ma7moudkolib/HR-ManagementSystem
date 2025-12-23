@@ -13,13 +13,13 @@ namespace Repository
         public void CreateLeaveRequestAsync(LeaveRequest request) => Create(request);
         public void DeleteLeaveRequest(LeaveRequest request) => Delete(request);
 
-        public async Task<IEnumerable<LeaveRequest>> GetByEmployeeAsync(Guid employeeId, bool trackChange) =>
+        public async Task<IEnumerable<LeaveRequest>> GetByEmployeeAsync(int employeeId, bool trackChange) =>
             await FindByCondition(l=> l.EmployeeId == employeeId, trackChange).ToListAsync();
 
         public async Task<IEnumerable<LeaveRequest>> GetByStatusAsync(LeaveStatus status, bool trackChange)=>
             await FindByCondition(l=> l.Status == status,trackChange).ToListAsync();
 
-        public async Task<LeaveRequest?> GetLeaveRequestByIdAsync(Guid id, bool trackChanges) => 
+        public async Task<LeaveRequest?> GetLeaveRequestByIdAsync(int id, bool trackChanges) => 
             await FindByCondition(l=>l.Equals(id),trackChanges).FirstOrDefaultAsync();
     }
 

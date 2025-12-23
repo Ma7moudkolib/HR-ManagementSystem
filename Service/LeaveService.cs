@@ -17,7 +17,7 @@ namespace Service
             _mapper = mapper;
         }
 
-        public async Task<ServiceResponse> ApproveLeaveAsync(Guid leaveRequestId)
+        public async Task<ServiceResponse> ApproveLeaveAsync(int leaveRequestId)
         {
             var request =await _repositoryManager.LeaveRequest.GetLeaveRequestByIdAsync(leaveRequestId, true);
             if (request is null)
@@ -61,19 +61,19 @@ namespace Service
             return new ServiceResponse(true, "Leave request created successfully");
         }
 
-        public async Task<IEnumerable<LeaveBalanceDto>> GetEmployeeLeaveBalancesAsync(Guid employeeId)
+        public async Task<IEnumerable<LeaveBalanceDto>> GetEmployeeLeaveBalancesAsync(int employeeId)
         {
            var balances =await _repositoryManager.LeaveBalance.GetBalancesForEmployeeAsync(employeeId, false);
             return _mapper.Map<IEnumerable<LeaveBalanceDto>>(balances);
         }
 
-        public async Task<IEnumerable<LeaveRequestDto>> GetEmployeeLeavesAsync(Guid employeeId)
+        public async Task<IEnumerable<LeaveRequestDto>> GetEmployeeLeavesAsync(int employeeId)
         {
             var leaves =await _repositoryManager.LeaveRequest.GetByEmployeeAsync(employeeId, false);
             return _mapper.Map<IEnumerable<LeaveRequestDto>>(leaves);
         }
 
-        public async Task<ServiceResponse> RejectLeaveAsync(Guid leaveRequestId)
+        public async Task<ServiceResponse> RejectLeaveAsync(int leaveRequestId)
         {
             var request = await _repositoryManager.LeaveRequest.GetLeaveRequestByIdAsync(leaveRequestId, true);
             if (request is null)

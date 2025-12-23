@@ -17,7 +17,7 @@ namespace Repository
 
         public async Task<IEnumerable<LeaveType>> GetAllLeaveTypeAsync(bool trackChange) =>
             await FindAll(trackChange).ToListAsync();
-        public async Task<LeaveType> GetLeaveTypeByIdAsync(Guid id, bool trackChange) =>
+        public async Task<LeaveType> GetLeaveTypeByIdAsync(int id, bool trackChange) =>
             await FindByCondition(lt => lt.Id == id, trackChange).FirstOrDefaultAsync();
 
     }

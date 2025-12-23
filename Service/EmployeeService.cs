@@ -19,7 +19,7 @@ namespace Service
             _mapper = mapper;
         }
 
-        public async Task<EmployeeDto> CreateEmployeeForCompany(Guid companyId, EmployeeForCreationDto employee, bool trackChanges)
+        public async Task<EmployeeDto> CreateEmployeeForCompany(int companyId, EmployeeForCreationDto employee, bool trackChanges)
         {
             var company = await _repositoryManager.Company.GetCompany(companyId,trackChanges);
             if(company == null)
@@ -31,7 +31,7 @@ namespace Service
             return employeeDto;
         }
 
-        public async Task DeleteEmployeeForCompany(Guid companyId, Guid employeeId, bool trackChange)
+        public async Task DeleteEmployeeForCompany(int companyId, int employeeId, bool trackChange)
         {
             var company = await _repositoryManager.Company.GetCompany(companyId, trackChange);
             if (company is null)
@@ -43,7 +43,7 @@ namespace Service
             await _repositoryManager.savechanges();
         }
 
-        public async Task<EmployeeDto> GetEmployee(Guid companyId, Guid id, bool trackChanges)
+        public async Task<EmployeeDto> GetEmployee(int companyId, int id, bool trackChanges)
         {
             var company = await _repositoryManager.Company.GetCompany(companyId, trackChanges);
             if(company is null)
@@ -55,7 +55,7 @@ namespace Service
             return employeeDto;
         }
 
-        public async Task<IEnumerable<EmployeeDto>> GetEmployees(Guid companyId, bool trackChanges)
+        public async Task<IEnumerable<EmployeeDto>> GetEmployees(int companyId, bool trackChanges)
         {
            var company = await _repositoryManager.Company.GetCompany(companyId,trackChanges);
             if(company is null)
@@ -65,7 +65,7 @@ namespace Service
             return employeeDto;
         }
 
-        public async Task UpdateEmployeeForCompany(Guid companyId, Guid id, EmployeeForUpdateDto employeeForUpdate, bool compTrackChanges, bool empTrackChanges)
+        public async Task UpdateEmployeeForCompany(int companyId, int id, EmployeeForUpdateDto employeeForUpdate, bool compTrackChanges, bool empTrackChanges)
         {
            var company =await _repositoryManager.Company.GetCompany(companyId, compTrackChanges);
             if (company is null)

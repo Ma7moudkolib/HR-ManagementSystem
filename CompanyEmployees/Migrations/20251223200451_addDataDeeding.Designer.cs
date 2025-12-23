@@ -12,8 +12,8 @@ using Repository.DatabaseContext;
 namespace CompanyEmployees.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20251210164146_addAttendanceTable")]
-    partial class addAttendanceTable
+    [Migration("20251223200451_addDataDeeding")]
+    partial class addDataDeeding
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,9 +27,11 @@ namespace CompanyEmployees.Migrations
 
             modelBuilder.Entity("Entities.Models.Attendance", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CheckIn")
                         .HasColumnType("datetime2");
@@ -37,8 +39,8 @@ namespace CompanyEmployees.Migrations
                     b.Property<DateTime?>("CheckOut")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("EmployeeId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("WorkedHours")
                         .HasColumnType("decimal(18,2)");
@@ -52,10 +54,12 @@ namespace CompanyEmployees.Migrations
 
             modelBuilder.Entity("Entities.Models.Company", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
+                        .HasColumnType("int")
                         .HasColumnName("CompanyId");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -77,14 +81,14 @@ namespace CompanyEmployees.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c9d4c053-49b6-410c-bc78-2d54a9991870"),
+                            Id = 1,
                             Address = "583 Wall Dr. Gwynn Oak, MD 21207",
                             Country = "USA",
                             Name = "IT_Solutions Ltd"
                         },
                         new
                         {
-                            Id = new Guid("3d490a70-94ce-4d15-9494-5248280c2ce3"),
+                            Id = 2,
                             Address = "312 Forest Avenue, BF 923",
                             Country = "USA",
                             Name = "Admin_Solutions Ltd"
@@ -93,13 +97,15 @@ namespace CompanyEmployees.Migrations
 
             modelBuilder.Entity("Entities.Models.Department", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
+                        .HasColumnType("int")
                         .HasColumnName("DepartmentId");
 
-                    b.Property<Guid>("CompanyId")
-                        .HasColumnType("uniqueidentifier");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasMaxLength(100)
@@ -119,15 +125,15 @@ namespace CompanyEmployees.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d"),
-                            CompanyId = new Guid("c9d4c053-49b6-410c-bc78-2d54a9991870"),
+                            Id = 1,
+                            CompanyId = 1,
                             Description = "Human Resources Department",
                             Name = "HR"
                         },
                         new
                         {
-                            Id = new Guid("b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e"),
-                            CompanyId = new Guid("c9d4c053-49b6-410c-bc78-2d54a9991870"),
+                            Id = 2,
+                            CompanyId = 1,
                             Description = "Information Technology Department",
                             Name = "IT"
                         });
@@ -135,19 +141,21 @@ namespace CompanyEmployees.Migrations
 
             modelBuilder.Entity("Entities.Models.Employee", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
+                        .HasColumnType("int")
                         .HasColumnName("EmployeeId");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("CompanyId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("DepartmentId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -182,10 +190,10 @@ namespace CompanyEmployees.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("80abbca8-664d-4b20-b5de-024705497d4a"),
+                            Id = 1,
                             Age = 26,
-                            CompanyId = new Guid("c9d4c053-49b6-410c-bc78-2d54a9991870"),
-                            DepartmentId = new Guid("b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e"),
+                            CompanyId = 1,
+                            DepartmentId = 2,
                             Email = "sam.raiden@company.com",
                             HireDate = new DateTime(2020, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Sam Raiden",
@@ -195,10 +203,10 @@ namespace CompanyEmployees.Migrations
                         },
                         new
                         {
-                            Id = new Guid("86dba8c0-d178-41e7-938c-ed49778fb52a"),
+                            Id = 2,
                             Age = 30,
-                            CompanyId = new Guid("c9d4c053-49b6-410c-bc78-2d54a9991870"),
-                            DepartmentId = new Guid("b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e"),
+                            CompanyId = 1,
+                            DepartmentId = 2,
                             Email = "jana.mcleaf@company.com",
                             HireDate = new DateTime(2019, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Jana McLeaf",
@@ -208,10 +216,10 @@ namespace CompanyEmployees.Migrations
                         },
                         new
                         {
-                            Id = new Guid("021ca3c1-0deb-4afd-ae94-2159a8479811"),
+                            Id = 3,
                             Age = 35,
-                            CompanyId = new Guid("3d490a70-94ce-4d15-9494-5248280c2ce3"),
-                            DepartmentId = new Guid("a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d"),
+                            CompanyId = 2,
+                            DepartmentId = 1,
                             Email = "kane.miller@company.com",
                             HireDate = new DateTime(2018, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Kane Miller",
@@ -219,6 +227,99 @@ namespace CompanyEmployees.Migrations
                             Position = "Administrator",
                             Salary = 90000m
                         });
+                });
+
+            modelBuilder.Entity("Entities.Models.LeaveBalance", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LeaveTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RemainingDays")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("LeaveTypeId");
+
+                    b.ToTable("leaveBalances");
+                });
+
+            modelBuilder.Entity("Entities.Models.LeaveRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime?>("ActionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EmployeeId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("LeaveTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Reason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("RequestDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalDays")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("LeaveTypeId");
+
+                    b.ToTable("leaveRequests");
+                });
+
+            modelBuilder.Entity("Entities.Models.LeaveType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DefaultDaysPerYear")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("leaveTypes");
                 });
 
             modelBuilder.Entity("Entities.Models.User", b =>
@@ -482,6 +583,44 @@ namespace CompanyEmployees.Migrations
                     b.Navigation("Department");
                 });
 
+            modelBuilder.Entity("Entities.Models.LeaveBalance", b =>
+                {
+                    b.HasOne("Entities.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.LeaveType", "LeaveType")
+                        .WithMany()
+                        .HasForeignKey("LeaveTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("LeaveType");
+                });
+
+            modelBuilder.Entity("Entities.Models.LeaveRequest", b =>
+                {
+                    b.HasOne("Entities.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.LeaveType", "LeaveType")
+                        .WithMany("LeaveRequests")
+                        .HasForeignKey("LeaveTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+
+                    b.Navigation("LeaveType");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -548,6 +687,11 @@ namespace CompanyEmployees.Migrations
             modelBuilder.Entity("Entities.Models.Employee", b =>
                 {
                     b.Navigation("attendance");
+                });
+
+            modelBuilder.Entity("Entities.Models.LeaveType", b =>
+                {
+                    b.Navigation("LeaveRequests");
                 });
 #pragma warning restore 612, 618
         }

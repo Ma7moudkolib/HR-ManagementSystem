@@ -11,19 +11,19 @@ namespace CompanyEmployees.Presentation.Controllers
         private readonly IServiceManager _serviceManager;
         public AttendanceController(IServiceManager serviceManager) => _serviceManager = serviceManager;
         [HttpPost("checkin/{employeeId}")]
-        public async Task<IActionResult> Checkin(Guid employeeId)
+        public async Task<IActionResult> Checkin(int employeeId)
         {
             var result = await _serviceManager.attendanceService.Checkin(employeeId);
             return Ok(result);
         }
         [HttpPost("checkout/{employeeId}")]
-        public async Task<IActionResult> Checkout(Guid employeeId)
+        public async Task<IActionResult> Checkout(int employeeId)
         {
             var result = await _serviceManager.attendanceService.Checkout(employeeId);
             return Ok(result);
         }
         [HttpGet("employee/{employeeId}")]
-        public async Task<IActionResult> GetEmployeeAttendance(Guid employeeId)
+        public async Task<IActionResult> GetEmployeeAttendance(int employeeId)
         {
             var result = await _serviceManager.attendanceService.GetEmployeeAttendance(employeeId);
             return Ok(result);

@@ -19,7 +19,7 @@ namespace Service
             _mapper = mapper;
         }
 
-        public async Task<CompanyDto> GetCompany(Guid companyId, bool trackChanges)
+        public async Task<CompanyDto> GetCompany(int companyId, bool trackChanges)
         {
             var company = await _repositoryManager.Company.GetCompany(companyId,trackChanges);
             if(company is  null)
@@ -44,7 +44,7 @@ namespace Service
             return companyDto;
         }
 
-        public async Task DeleteCompany(Guid companyId, bool trackChanges)
+        public async Task DeleteCompany(int companyId, bool trackChanges)
         {
             var company = await _repositoryManager.Company.GetCompany(companyId, trackChanges);
             if (company is null)

@@ -17,8 +17,8 @@ namespace CompanyEmployees.Presentation.Controllers
             var companies = await _serviceManager.companyService.GetAllCompanies(trackChanges: false);
             return Ok(companies);
         }
-        [HttpGet("{id:guid}",Name ="ComapnyById")]
-        public async Task<IActionResult> GetCompany(Guid id )
+        [HttpGet("{id}",Name ="ComapnyById")]
+        public async Task<IActionResult> GetCompany(int id )
         {
             var company = await _serviceManager.companyService.GetCompany(id, false);
             return Ok(company);
@@ -29,14 +29,14 @@ namespace CompanyEmployees.Presentation.Controllers
             var companyResponse =await _serviceManager.companyService.CreateCompany(company);
             return CreatedAtRoute("CompanyById", new {id = companyResponse.Id},companyResponse);
         }
-        [HttpDelete("{id:guid}")]
-        public async Task<IActionResult> DeleteCompany(Guid id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCompany(int id)
         {
            await _serviceManager.companyService.DeleteCompany(id, false);
             return NoContent();
         }
-        [HttpPut("{id:guid}")]
-        public async Task<IActionResult> UpdateCompany(Guid id, [FromBody] CompanyDto company)
+        [HttpPut]
+        public async Task<IActionResult> UpdateCompany([FromBody] CompanyDto company)
         {
             if (company is null)
                 return BadRequest("CompanyDto object is null");

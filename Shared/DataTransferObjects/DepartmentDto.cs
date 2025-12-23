@@ -1,4 +1,4 @@
 ﻿namespace Shared.DataTransferObjects
 {
-    public record DepartmentDto(Guid Id, string Name, string Description);
+    public record DepartmentDto(int Id, string Name, string Description);
 }

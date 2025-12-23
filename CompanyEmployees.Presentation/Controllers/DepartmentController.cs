@@ -12,28 +12,28 @@ namespace CompanyEmployees.Presentation.Controllers
         private readonly IServiceManager _serviceManager;
         public DepartmentController(IServiceManager serviceManager) => _serviceManager = serviceManager;
         [HttpGet]
-        public async Task<IActionResult> GetDepartmentsForCompany(Guid companyId)
+        public async Task<IActionResult> GetDepartmentsForCompany(int companyId)
         {
             var departments = await _serviceManager.departmentService.GetDepartmentsAsync(companyId, false);
             return Ok(departments);
         }
         [HttpGet]
         [Route("{departmentId}")]
-        public async Task<IActionResult> GetDepartmentForCompany(Guid companyId, Guid departmentId)
+        public async Task<IActionResult> GetDepartmentForCompany(int companyId, int departmentId)
         {
             var department = await _serviceManager.departmentService.GetDepartmentAsync(companyId, departmentId, false);
             return Ok(department);
         }
         [HttpDelete]
         [Route("{departmentId}")]
-        public async Task<IActionResult> DeleteDepartmentforCompany(Guid companyId, Guid departmentId)
+        public async Task<IActionResult> DeleteDepartmentforCompany(int companyId, int departmentId)
         {
             await _serviceManager.departmentService.DeleteDepartmentForCompanyAsync(companyId, departmentId, false);
             return NoContent();
         }
         [HttpPut]
         [Route("{departmentId}")]
-        public async Task<IActionResult> UpdateDepartmentForCompany(Guid companyId, Guid departmentId, [FromBody] DepartmentUpdateDto departmentForUpdate)
+        public async Task<IActionResult> UpdateDepartmentForCompany(int companyId, int departmentId, [FromBody] DepartmentUpdateDto departmentForUpdate)
         {
             await _serviceManager.departmentService.UpdateDepartmentForCompanyAsync(companyId, departmentId, departmentForUpdate, true);
             return NoContent();

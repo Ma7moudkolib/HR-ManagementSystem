@@ -16,7 +16,7 @@ namespace Service
             _mapper = mapper;
             _logger = logger;
         }
-        public async Task<IEnumerable<DepartmentDto>> GetDepartmentsAsync(Guid companyId, bool trackChanges)
+        public async Task<IEnumerable<DepartmentDto>> GetDepartmentsAsync(int companyId, bool trackChanges)
         {
            var company = await _repository.Company.GetCompany(companyId, trackChanges);
             if (company is null)
@@ -25,7 +25,7 @@ namespace Service
             var departmentsDto = _mapper.Map<IEnumerable<DepartmentDto>>(departmentsFromDb);
             return departmentsDto;
         }
-        public async Task<DepartmentDto> GetDepartmentAsync(Guid companyId, Guid departmentId, bool trackChanges)
+        public async Task<DepartmentDto> GetDepartmentAsync(int companyId, int departmentId, bool trackChanges)
         {
             var company = await _repository.Company.GetCompany(companyId, trackChanges);
             if (company is null)
@@ -36,7 +36,7 @@ namespace Service
             var departmentDto = _mapper.Map<DepartmentDto>(departmentDb);
             return departmentDto;
         }
-        public async Task<DepartmentDto> CreateDepartmentForCompanyAsync(Guid companyId, DepartmentCreateDto departmentForCreation)
+        public async Task<DepartmentDto> CreateDepartmentForCompanyAsync(int companyId, DepartmentCreateDto departmentForCreation)
         {
             var company = await _repository.Company.GetCompany(companyId, false);
             if (company is null)
@@ -47,7 +47,7 @@ namespace Service
             var departmentToReturn = _mapper.Map<DepartmentDto>(departmentEntity);
             return departmentToReturn;
         }
-        public async Task DeleteDepartmentForCompanyAsync(Guid companyId, Guid departmentId, bool trackChanges)
+        public async Task DeleteDepartmentForCompanyAsync(int companyId, int departmentId, bool trackChanges)
         {
             var company = await _repository.Company.GetCompany(companyId, trackChanges);
             if (company is null)
@@ -58,7 +58,7 @@ namespace Service
             _repository.Department.DeleteDepartment(departmentDb);
             await _repository.savechanges();
         }
-        public async Task UpdateDepartmentForCompanyAsync(Guid companyId, Guid departmentId, DepartmentUpdateDto departmentForUpdate, bool trackChanges)
+        public async Task UpdateDepartmentForCompanyAsync(int companyId, int departmentId, DepartmentUpdateDto departmentForUpdate, bool trackChanges)
         {
             var company = await _repository.Company.GetCompany(companyId, trackChanges);
             if (company is null)

@@ -1,4 +1,4 @@
 ﻿namespace Shared.DataTransferObjects
 {
-    public record CompanyDto(Guid Id ,string Name , string FullAddress);
+    public record CompanyDto(int Id ,string Name , string FullAddress);
 }

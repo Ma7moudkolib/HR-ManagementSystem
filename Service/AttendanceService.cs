@@ -15,7 +15,7 @@ namespace Service
             _repository = repository;
             _mapper = mapper;
         }
-        public async Task<ServiceResponse> Checkin(Guid employeeId)
+        public async Task<ServiceResponse> Checkin(int employeeId)
         {
            var employeeAttendance = await _repository.Attendance.GetAttendanceByEmployeeIdAsync(employeeId, false);
             if (employeeAttendance != null)
@@ -32,7 +32,7 @@ namespace Service
             return new ServiceResponse(true, "Check-in successful");
         }
 
-        public async Task<ServiceResponse> Checkout(Guid employeeId)
+        public async Task<ServiceResponse> Checkout(int employeeId)
         {
             var employeeAttendance = await _repository.Attendance.GetAttendanceByEmployeeIdForDayAsync(employeeId,DateTime.UtcNow, true);
             if (employeeAttendance == null)
@@ -45,7 +45,7 @@ namespace Service
             return new ServiceResponse(true, "Check-out successful");
         }
 
-        public async Task<IEnumerable<AttendanceDto>> GetEmployeeAttendance(Guid employeeId)
+        public async Task<IEnumerable<AttendanceDto>> GetEmployeeAttendance(int employeeId)
         {
            var attendances =await _repository.Attendance.GetAttendanceByEmployeeIdAsync(employeeId, false);
             if (attendances == null)
