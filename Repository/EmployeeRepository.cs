@@ -26,7 +26,7 @@ namespace Repository
             , trackChanges).SingleOrDefaultAsync();
       
 
-        public async Task<IEnumerable<Employee?>> GetEmployees(int companyId, bool trackChanges)=>
+        public async Task<IEnumerable<Employee>> GetEmployees(int companyId, bool trackChanges)=>
            await FindByCondition(c => c.CompanyId.Equals(companyId), trackChanges)
             .OrderBy(e=>e.Name).ToListAsync();
 
