@@ -8,5 +8,6 @@
         IDepartmentService departmentService { get; }
         IAttendanceService attendanceService { get; }
         ILeaveService leaveService { get; }
+        IPayrollService payrollService { get; }
     }
 }

@@ -15,6 +15,7 @@ namespace Service
         private readonly Lazy<IDepartmentService> _departmentService;
         private readonly Lazy<IAttendanceService> _attendanceService;
         private readonly Lazy<ILeaveService> _leaveService;
+        private readonly Lazy<IPayrollService> _payrollService;
         public ServiceManager(IRepositoryManager repositoryManager , ILoggerManager loggerManager,IMapper mapper,UserManager<User> userManager,IConfiguration configuration  )
         {
             _companyService = new Lazy<ICompanyService>(() => new CompanyService(repositoryManager, loggerManager,mapper));
@@ -23,6 +24,7 @@ namespace Service
             _authenticationService = new Lazy<IAuthenticationService>(() => new AuthenticationService(loggerManager, mapper,userManager,configuration));
             _attendanceService = new Lazy<IAttendanceService>(() => new AttendanceService(repositoryManager, mapper));
             _leaveService = new Lazy<ILeaveService>(() => new LeaveService(repositoryManager, mapper));
+            _payrollService = new Lazy<IPayrollService>(() => new PayrollService(repositoryManager, mapper));
         }
 
         public ICompanyService companyService => _companyService.Value;
@@ -31,5 +33,6 @@ namespace Service
         public IAuthenticationService authenticationService => _authenticationService.Value;
         public IAttendanceService attendanceService => _attendanceService.Value;
         public ILeaveService leaveService => _leaveService.Value;
+        public IPayrollService payrollService => _payrollService.Value;
     }
 }
