@@ -9,6 +9,8 @@
         ILeaveBalanceRepository LeaveBalance { get; }
         ILeaveRequestRepository LeaveRequest { get; }
         ILeaveTypeRepository leaveTypeRepository { get; }
+        IPayrollPeriodRepository payrollPeriodRepository { get; }
+        IPayrollRecordRepository payrollRecordRepository { get; }
         Task savechanges();
     }
 }

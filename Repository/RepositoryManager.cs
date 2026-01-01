@@ -13,6 +13,8 @@ namespace Repository
         private readonly Lazy<ILeaveBalanceRepository> _leaveBalanceRepository;
         private readonly Lazy<ILeaveRequestRepository> _leaveRequestRepository;
         private readonly Lazy<ILeaveTypeRepository> _leaveTypeRepository;
+        private readonly Lazy<IPayrollPeriodRepository> _payrollPeriodRepository;
+        private readonly Lazy<IPayrollRecordRepository> _payrollRecordRepository;
         public RepositoryManager(RepositoryContext repositoryContext)
         {
             _repositoryContext = repositoryContext;
@@ -23,6 +25,8 @@ namespace Repository
             _leaveBalanceRepository = new Lazy<ILeaveBalanceRepository>(() => new LeaveBalanceRepository(repositoryContext));
             _leaveRequestRepository = new Lazy<ILeaveRequestRepository>(() => new LeaveRequestRepository(repositoryContext));
             _leaveTypeRepository = new Lazy<ILeaveTypeRepository>(() => new LeaveTypeRepository(repositoryContext));
+            _payrollPeriodRepository = new Lazy<IPayrollPeriodRepository>(() => new PayrollPeriodRepository(repositoryContext));
+            _payrollRecordRepository = new Lazy<IPayrollRecordRepository>(() => new PayrollRecordRepository(repositoryContext));
         }
         public ICompanyRepository Company => _companyRepository.Value;
         public IEmployeeRepository Employee => _employeeRepository.Value;
@@ -31,6 +35,8 @@ namespace Repository
         public ILeaveBalanceRepository LeaveBalance => _leaveBalanceRepository.Value;
         public ILeaveRequestRepository LeaveRequest => _leaveRequestRepository.Value;
         public ILeaveTypeRepository leaveTypeRepository => _leaveTypeRepository.Value;
+        public IPayrollPeriodRepository payrollPeriodRepository => _payrollPeriodRepository.Value;
+        public IPayrollRecordRepository payrollRecordRepository => _payrollRecordRepository.Value;
 
         public async Task savechanges()=> await _repositoryContext.SaveChangesAsync();
     }
