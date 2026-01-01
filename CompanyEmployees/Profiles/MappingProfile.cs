@@ -21,6 +21,10 @@ namespace CompanyEmployees.Profiles
             CreateMap<LeaveBalanceDto,LeaveBalance>();
             CreateMap<LeaveRequestDto , LeaveRequest>();
             CreateMap<CreateLeaveRequestDto, LeaveRequest>();
+            CreateMap<GeneratePayrollRequestDto, PayrollPeriod>();
+            CreateMap<PayrollPeriod, PayrollPeriodDto>();
+            CreateMap<PayrollRecord, PayrollRecordDto>();
+            
 
         }
     }
