@@ -14,7 +14,7 @@ namespace Repository
         public void DeleteLeaveRequest(LeaveRequest request) => Delete(request);
 
         public async Task<IEnumerable<LeaveRequest>> GetByEmployeeAsync(int employeeId, bool trackChange) =>
-            await FindByCondition(l=> l.EmployeeId == employeeId, trackChange).ToListAsync();
+            await FindByCondition(l=> l.EmployeeId == employeeId, trackChange).Include(l=>l.LeaveType.IsPaid).ToListAsync();
 
         public async Task<IEnumerable<LeaveRequest>> GetByStatusAsync(LeaveStatus status, bool trackChange)=>
             await FindByCondition(l=> l.Status == status,trackChange).ToListAsync();
