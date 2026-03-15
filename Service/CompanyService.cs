@@ -7,7 +7,7 @@ using Shared.DataTransferObjects;
 
 namespace Service
 {
-    internal sealed class CompanyService :ICompanyService
+    public sealed class CompanyService :ICompanyService
     {
         private readonly IRepositoryManager _repositoryManager;
         private readonly ILoggerManager _loggerManager;
