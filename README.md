@@ -100,6 +100,40 @@ A modern, scalable Human Resources (HR) management system built with ASP.NET Cor
 
 ---
 
+## 🧪 Testing
+
+The project includes a comprehensive unit test suite to ensure code quality and reliability:
+
+### Test Projects
+
+- **CompanyEmployees.Tests** – Unit tests covering:
+  - `AttendanceServiceTests.cs` – Attendance tracking functionality
+  - `AuthenticationServiceTests.cs` – User authentication and authorization
+  - `CompanyServiceTests.cs` – Company management operations
+  - `DepartmentServiceTests.cs` – Department management operations
+  - `EmployeeServiceTests.cs` – Employee management operations
+  - `LeaveServiceTests.cs` – Leave request and balance management
+  - `PayrollServiceTests.cs` – Payroll processing functionality
+
+### Running Tests
+
+1. **Run all tests:**
+   ```bash
+   dotnet test CompanyEmployees.Tests/CompanyEmployees.Tests.csproj
+   ```
+
+2. **Run specific test class:**
+   ```bash
+   dotnet test CompanyEmployees.Tests/CompanyEmployees.Tests.csproj --filter ClassName
+   ```
+
+3. **Run with verbose output:**
+   ```bash
+   dotnet test CompanyEmployees.Tests/CompanyEmployees.Tests.csproj --verbosity normal
+   ```
+
+---
+
 ## 📚 Documentation
 
 - **Swagger UI** is enabled in development mode for interactive API exploration and testing.
