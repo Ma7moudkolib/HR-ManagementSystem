@@ -5,31 +5,38 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS restore
 
 WORKDIR /src
 
-# Copy solution + project files first for optimal layer caching
-COPY src/*.sln ./
-COPY src/*/*.csproj ./
-# Restore dependencies
+COPY Backend/src/*.sln ./
+COPY Backend/src/CompanyEmployees/*.csproj                  ./CompanyEmployees/
+COPY Backend/src/CompanyEmployees.Presentation/*.csproj     ./CompanyEmployees.Presentation/
+COPY Backend/src/CompanyEmployees.Tests/*.csproj            ./CompanyEmployees.Tests/
+COPY Backend/src/Contracts/*.csproj                         ./Contracts/
+COPY Backend/src/Entities/*.csproj                          ./Entities/
+COPY Backend/src/Repository/*.csproj                        ./Repository/
+COPY Backend/src/Service/*.csproj                           ./Service/
+COPY Backend/src/Service.Contracts/*.csproj                 ./Service.Contracts/
+COPY Backend/src/LoggerService/*.csproj                     ./LoggerService/
+COPY Backend/src/Shared/*.csproj                            ./Shared/
+
 RUN dotnet restore *.sln
 
-COPY src/. ./
+COPY Backend/src/ .
 
 # ─────────────────────────────────────────────
-# Stage 2: Build (Release artefacts)
+# Stage 2: Build — restore + publish together
 # ─────────────────────────────────────────────
 FROM restore AS build
 
-RUN dotnet publish src/*.sln -c Release -o /app/publish
+
+RUN dotnet publish ./CompanyEmployees/CompanyEmployees.csproj \
+    -c Release \
+    -o /app/publish
 
 # ─────────────────────────────────────────────
 # Stage 3: Development
-#   • SDK image so `dotnet watch` is available
-#   • Source mounted at runtime via docker-compose
-#   • Hot-reload enabled out of the box
 # ─────────────────────────────────────────────
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS development
 
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 as development
-
-WORKDIR /src 
+WORKDIR /src
 
 COPY --from=restore /root/.nuget /root/.nuget
 COPY --from=restore /src .
@@ -41,19 +48,20 @@ ENV ASPNETCORE_ENVIRONMENT=Development
 ENV DOTNET_USE_POLLING_FILE_WATCHER=true
 ENV DOTNET_WATCH_RESTART_ON_RUDE_EDIT=true
 
-ENTRYPOINT ["dotnet", "watch", "--project", "ATM.API/ATM.API.csproj", "run", "--no-launch-profile"]
+ENTRYPOINT ["dotnet", "watch", "--project", "CompanyEmployees/CompanyEmployees.csproj", "run", "--no-launch-profile"]
 
 # ─────────────────────────────────────────────
 # Stage 4: Production
-#   • Minimal ASP.NET runtime image (no SDK)
-#   • Only published artefacts copied in
 # ─────────────────────────────────────────────
-
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS production
 
 WORKDIR /app
+
 COPY --from=build /app/publish .
+
 EXPOSE 8080
+
 ENV ASPNETCORE_URLS=http://+:8080
 ENV ASPNETCORE_ENVIRONMENT=Production
-ENTRYPOINT ["dotnet", "CompanyEmployee.dll"]
+
+ENTRYPOINT ["dotnet", "CompanyEmployees.dll"]
