@@ -6,9 +6,7 @@ networks:
 
 services:
   hrms-frontend:
-    build:
-      context: ./Frontend
-      dockerfile: Dockerfile
+    image: mahmoud1242002/hr-management-system-frontend:latest
     container_name: hrms-frontend
     ports:
       - "80:80"
@@ -18,9 +16,7 @@ services:
       - hr-network
 
   hr-system-api:
-    build: 
-      context: .
-      dockerfile: ./Backend/dockerfile
+    image: mahmoud1242002/hr-management-system-api:latest
     container_name: hr-system-api
     ports:
       - "8080:8080"
