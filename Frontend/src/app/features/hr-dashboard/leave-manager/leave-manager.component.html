@@ -1,0 +1,75 @@
+<div class="mb-8 flex items-center justify-between">
+  <div>
+    <h1 class="text-3xl font-display font-bold text-on-surface tracking-tight mb-2">Leave Management</h1>
+    <p class="text-on-surface-variant font-medium">Handle time-off requests and overview employee allocations.</p>
+  </div>
+  <div class="bg-surface-container-high rounded-lg p-1 flex">
+    <button (click)="viewMode = 'admin'" class="px-4 py-2 rounded-md text-sm font-semibold transition-all" [ngClass]="viewMode === 'admin' ? 'bg-primary text-on-primary shadow-sm' : 'text-on-surface-variant hover:text-on-surface'">Admin View</button>
+    <button (click)="viewMode = 'employee'" class="px-4 py-2 rounded-md text-sm font-semibold transition-all" [ngClass]="viewMode === 'employee' ? 'bg-primary text-on-primary shadow-sm' : 'text-on-surface-variant hover:text-on-surface'">Employee View</button>
+  </div>
+</div>
+
+<!-- Employee View: Balances -->
+<div *ngIf="viewMode === 'employee'" class="grid grid-cols-3 gap-6 mb-8">
+  <div *ngFor="let bal of leaveBalances" class="glass-card ambient-shadow rounded-2xl p-6 border border-surface-container-high">
+    <div class="text-on-surface-variant text-sm font-medium uppercase tracking-wider mb-2">Employee {{ bal.employeeId }}</div>
+    <div class="text-4xl font-display font-bold text-primary mb-6">{{ bal.remainingDays }} <span class="text-lg text-on-surface-variant font-medium">Days Left</span></div>
+    
+    <div class="flex justify-between items-center text-sm border-t border-surface-container-high border-opacity-50 pt-4">
+      <span class="text-on-surface-variant">Paid Used</span>
+      <span class="font-semibold text-on-surface">{{ bal.paidDaysUsed }}</span>
+    </div>
+    <div class="flex justify-between items-center text-sm pt-2">
+      <span class="text-on-surface-variant">Unpaid Used</span>
+      <span class="font-semibold text-on-surface">{{ bal.unpaidDaysUsed }}</span>
+    </div>
+    
+    <button class="btn btn-secondary w-full mt-6">Request Time Off</button>
+  </div>
+</div>
+
+<!-- Admin View: Approval Workflow -->
+<div *ngIf="viewMode === 'admin'" class="bg-surface-container-lowest rounded-xl ambient-shadow overflow-hidden border border-surface-container-high/50">
+  <div class="px-6 py-4 border-b border-surface-container-high border-opacity-50 flex items-center justify-between">
+    <h3 class="font-display font-bold text-lg text-on-surface">Pending Approvals</h3>
+    <span class="badge badge-warning">{{ pendingRequests.length }} requests pending</span>
+  </div>
+  
+  <table class="w-full text-left border-collapse">
+    <thead>
+      <tr class="bg-surface-container-low text-on-surface-variant text-[12px] uppercase tracking-wider font-semibold border-b border-surface-container-high border-opacity-50">
+        <th class="px-6 py-4">Employee ID</th>
+        <th class="px-6 py-4">Dates</th>
+        <th class="px-6 py-4">Type & Reason</th>
+        <th class="px-6 py-4 text-center">Status</th>
+        <th class="px-6 py-4 text-right">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let req of pendingRequests" class="group transition-colors hover:bg-surface-container-low border-b border-surface-container-high border-opacity-30 last:border-0">
+        <td class="px-6 py-4 font-medium text-on-surface">{{ req.employeeId }}</td>
+        <td class="px-6 py-4 text-on-surface-variant text-sm">{{ req.startDate | date:'shortDate' }} - {{ req.endDate | date:'shortDate' }}</td>
+        <td class="px-6 py-4">
+          <div class="font-medium text-on-surface">{{ req.leaveTypeId }}</div>
+          <div class="text-xs text-on-surface-variant">{{ req.reason }}</div>
+        </td>
+        <td class="px-6 py-4 text-center">
+          <span class="badge badge-warning">Pending</span>
+        </td>
+        <td class="px-6 py-4 text-right space-x-2">
+          <button (click)="approveRequest(req.id)" class="btn bg-primary-fixed text-on-primary-fixed-variant !px-3 !py-1.5 !min-h-0 text-sm hover:-translate-y-0.5 shadow-sm">
+            Approve
+          </button>
+          <button (click)="rejectRequest(req.id)" class="btn bg-error-container text-on-error-container !px-3 !py-1.5 !min-h-0 text-sm hover:-translate-y-0.5 shadow-sm">
+            Reject
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="pendingRequests.length === 0">
+        <td colspan="5" class="px-6 py-12 text-center text-on-surface-variant font-medium">
+          No pending requests to approve.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
