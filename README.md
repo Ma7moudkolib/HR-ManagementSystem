@@ -1,29 +1,39 @@
-# HR Management System
+# HR Management System (Full-Stack)
 
-A modern, scalable Human Resources (HR) management system built with ASP.NET Core (.NET 9). This solution provides a robust RESTful API for managing companies, departments, employees, attendance, leave, and user authentication. Designed for extensibility and security, it is suitable for organizations of any size.
+A modern, scalable Human Resources (HR) management system built with ASP.NET Core (.NET 9) on the backend and Angular on the frontend. This solution provides a robust RESTful API and a responsive UI for managing companies, departments, employees, attendance, leave, and user authentication. Designed for extensibility and security, it is suitable for organizations of any size.
 
 ---
 
-## 🚀 Features
+## 🚀 Tech Stack
 
-- **User Authentication & Authorization**
+- **Backend:** ASP.NET Core API, Entity Framework Core, SQL Server (Clean Architecture with Domain, Application, Infrastructure, and Web API layers).
+- **Frontend:** Angular (Latest), Tailwind CSS, Reactive Forms.
+
+---
+
+## 🌟 Key Features
+
+- **JWT Authentication (Login/Register)**
   - Secure registration and login with JWT-based authentication.
-- **Company Management**
-  - Create, update, retrieve, and delete company records.
-- **Department Management**
-  - Manage departments within companies, including CRUD operations.
-- **Employee Management**
-  - Add, update, retrieve, and remove employees for each company.
-- **Attendance Tracking**
+- **Employee & Company CRUD Management**
+  - Create, update, retrieve, and delete company and employee records.
+  - Manage departments within companies.
+- **Attendance Tracking (Check-in/out)**
   - Employee check-in/check-out and attendance history.
-- **Leave Management**
+- **Leave Management & Approval Workflow**
   - Submit, approve, reject leave requests and track leave balances.
+- **Payroll Generation & Summaries**
+  - Generate and view payroll summaries based on DTOs.
 - **API Documentation**
   - Interactive Swagger UI for exploring and testing endpoints.
 
 ---
 
-## 📦 Project Structure
+## 🏗️ Architecture
+
+The application follows a full-stack architecture:
+- **Backend:** 4-layer clean architecture (Domain, Application, Infrastructure, and Web API) ensuring separation of concerns.
+- **Frontend:** Modular Angular application utilizing standalone components, lazy-loaded routes, Tailwind CSS for styling, and reactive forms for state management.
 
 ---
 
@@ -32,6 +42,7 @@ A modern, scalable Human Resources (HR) management system built with ASP.NET Cor
 ### Prerequisites
 
 - [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
+- Node.js & npm (for the Angular Frontend)
 - Visual Studio 2022 or later
 
 ### Setup
@@ -41,9 +52,12 @@ A modern, scalable Human Resources (HR) management system built with ASP.NET Cor
    - Update your connection string in `appsettings.json`.
 
 3. **Build and run the application:**
+   - Backend: `dotnet run`
+   - Frontend: Navigate to `Frontend` directory, run `npm install`, and then `npm start`.
 
-4. **Access the API documentation:**
-   - Navigate to `https://localhost:{port}/swagger` in your browser.
+4. **Access the Application & API documentation:**
+   - API Docs: Navigate to `https://localhost:{port}/swagger` in your browser.
+   - Frontend: Open `http://localhost:4200` in your browser.
 
 ---
 
@@ -158,5 +172,4 @@ This project is licensed under the MIT License.
 
 ---
 
-> Built with .NET 9 and Visual Studio 2022.
-
+> Built with .NET 9 and Angular.
