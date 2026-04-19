@@ -1,5 +1,22 @@
 version: '3.8'
+
+networks:
+  hr-network:
+    driver: bridge
+
 services:
+  hrms-frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    container_name: hrms-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - hr-system-api
+    networks:
+      - hr-network
+
   hr-system-api:
     build: 
       context: .
@@ -14,6 +31,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+    networks:
+      - hr-network
 
   postgres:
     image: postgres:alpine
@@ -32,5 +51,8 @@ services:
       - POSTGRES_DB=CompanyEmployees
     volumes:
       - postgres-db:/var/lib/postgresql/data
+    networks:
+      - hr-network
+
 volumes:
   postgres-db:
