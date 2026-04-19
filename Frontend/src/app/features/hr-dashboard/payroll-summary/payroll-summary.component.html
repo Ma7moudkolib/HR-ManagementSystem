@@ -1,0 +1,66 @@
+<div class="mb-8 flex items-center justify-between">
+  <div>
+    <h1 class="text-3xl font-display font-bold text-on-surface tracking-tight mb-2">Payroll Summary</h1>
+    <p class="text-on-surface-variant font-medium">Verify structural disbursements and total salary rollups.</p>
+  </div>
+  <button class="btn btn-primary shadow-lg shadow-primary/20" (click)="openGenerateModal()">
+    <span class="material-icons mr-2">receipt_long</span> Generate Payroll
+  </button>
+</div>
+
+<div class="bg-surface-container-lowest rounded-xl ambient-shadow overflow-hidden border border-surface-container-high/50">
+  <table class="w-full text-left border-collapse">
+    <thead>
+      <tr class="bg-surface-container-low text-on-surface-variant text-[12px] uppercase tracking-wider font-semibold border-b border-surface-container-high border-opacity-50">
+        <th class="px-6 py-4">Employee ID</th>
+        <th class="px-6 py-4">Period</th>
+        <th class="px-6 py-4 text-right">Basic Salary</th>
+        <th class="px-6 py-4 text-right">Net Salary</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of summaries" class="group transition-colors hover:bg-surface-container-low border-b border-surface-container-high border-opacity-30 last:border-0">
+        <td class="px-6 py-4 font-medium text-on-surface">{{ p.employeeId }}</td>
+        <td class="px-6 py-4 text-on-surface-variant text-sm">{{ p.year }} - Month {{ p.month }}</td>
+        <td class="px-6 py-4 text-right text-on-surface-variant font-medium">${{ p.totalBasicSalary | number }}</td>
+        <td class="px-6 py-4 text-right font-display font-semibold text-primary">${{ p.totalNetSalary | number }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal for Generating Payroll -->
+<div *ngIf="showModal" class="fixed inset-0 z-50 flex items-center justify-center p-4">
+  <div class="absolute inset-0 bg-on-surface/40 backdrop-blur-sm" (click)="closeModal()"></div>
+  
+  <div class="glass-card bg-surface-container-lowest rounded-xl max-w-md w-full relative z-10 ambient-shadow border border-surface-container-high p-8">
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="font-display font-bold text-xl text-on-surface">Generate Payroll Event</h2>
+      <button class="text-on-surface-variant hover:text-on-surface" (click)="closeModal()">
+        <span class="material-icons">close</span>
+      </button>
+    </div>
+    
+    <div class="space-y-5">
+      <div>
+        <label class="block text-sm font-medium text-on-surface-variant mb-2">Company Entity Code</label>
+        <input type="text" placeholder="e.g. COMP-A" class="w-full bg-surface-container-low border border-surface-container-high focus:border-primary focus:ring-2 focus:ring-primary/20 text-on-surface rounded-lg py-2.5 px-4 outline-none">
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-on-surface-variant mb-2">Year</label>
+          <input type="number" value="2026" class="w-full bg-surface-container-low border border-surface-container-high focus:border-primary focus:ring-2 focus:ring-primary/20 text-on-surface rounded-lg py-2.5 px-4 outline-none">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-on-surface-variant mb-2">Month</label>
+          <input type="number" min="1" max="12" value="4" class="w-full bg-surface-container-low border border-surface-container-high focus:border-primary focus:ring-2 focus:ring-primary/20 text-on-surface rounded-lg py-2.5 px-4 outline-none">
+        </div>
+      </div>
+      
+      <div class="pt-4 flex space-x-3">
+        <button class="btn btn-secondary flex-1" (click)="closeModal()">Cancel</button>
+        <button class="btn btn-primary flex-1" (click)="generatePayroll()">Execute Processing</button>
+      </div>
+    </div>
+  </div>
+</div>
