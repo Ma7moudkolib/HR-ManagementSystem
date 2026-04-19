@@ -1,0 +1,51 @@
+<div class="mb-8 flex items-center justify-between">
+  <div>
+    <h1 class="text-3xl font-display font-bold text-on-surface tracking-tight mb-2">Company Directory</h1>
+    <p class="text-on-surface-variant font-medium">Manage organizational units, legal entities, and subsidiary branches within your global enterprise.</p>
+  </div>
+  <button class="btn btn-primary" routerLink="/companies/new">
+    <span class="material-icons mr-2">add</span> Register New Office
+  </button>
+</div>
+
+<!-- Table Card container -->
+<div class="bg-surface-container-lowest rounded-xl ambient-shadow overflow-hidden">
+  <table class="w-full text-left border-collapse">
+    <thead>
+      <tr class="bg-surface-container-low text-on-surface-variant text-[12px] uppercase tracking-wider font-semibold border-b border-surface-container-high border-opacity-50">
+        <th class="px-6 py-4">Company Name</th>
+        <th class="px-6 py-4">Address</th>
+        <th class="px-6 py-4">Country</th>
+        <th class="px-6 py-4 text-right">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let company of companies" class="group transition-colors hover:bg-surface-container-low border-b border-surface-container-high border-opacity-30 last:border-0">
+        <td class="px-6 py-4">
+          <div class="font-display font-semibold text-on-surface">{{ company.name }}</div>
+          <div class="text-xs text-on-surface-variant mt-0.5">ID: {{ company.id }}</div>
+        </td>
+        <td class="px-6 py-4 text-on-surface-variant text-sm">{{ company.address }}</td>
+        <td class="px-6 py-4 text-on-surface-variant text-sm">{{ company.country }}</td>
+        <td class="px-6 py-4 text-right space-x-2">
+          <button class="btn btn-ghost !px-2 !py-1 !min-h-0 text-sm" title="View">
+            <span class="material-icons text-[18px]">visibility</span>
+          </button>
+          <button class="btn btn-ghost !px-2 !py-1 !min-h-0 text-sm text-on-surface-variant hover:text-primary" title="Edit">
+            <span class="material-icons text-[18px]">edit</span>
+          </button>
+          <button (click)="deleteCompany(company.id)" class="btn btn-ghost !px-2 !py-1 !min-h-0 text-sm text-error hover:text-error" title="Delete">
+            <span class="material-icons text-[18px]">delete</span>
+          </button>
+        </td>
+      </tr>
+      
+      <!-- Empty State -->
+      <tr *ngIf="companies.length === 0">
+        <td colspan="4" class="px-6 py-12 text-center text-on-surface-variant font-medium">
+          No companies found. Register a new office.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

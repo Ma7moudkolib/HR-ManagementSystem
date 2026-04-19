@@ -1,0 +1,57 @@
+<div class="mb-8 flex items-center justify-between">
+  <div>
+    <h1 class="text-3xl font-display font-bold text-on-surface tracking-tight mb-2">Employee Directory</h1>
+    <p class="text-on-surface-variant font-medium">Overview of all registered staff across your active entities.</p>
+  </div>
+  <button class="btn btn-primary" routerLink="/employees/new">
+    <span class="material-icons mr-2">person_add</span> Enlist Employee
+  </button>
+</div>
+
+<!-- Table Container -->
+<div class="bg-surface-container-lowest rounded-xl ambient-shadow overflow-hidden">
+  <table class="w-full text-left border-collapse">
+    <thead>
+      <tr class="bg-surface-container-low text-on-surface-variant text-[12px] uppercase tracking-wider font-semibold border-b border-surface-container-high border-opacity-50">
+        <th class="px-6 py-4">Employee</th>
+        <th class="px-6 py-4">Position</th>
+        <th class="px-6 py-4 text-right">Age</th>
+        <th class="px-6 py-4 text-right">Salary</th>
+        <th class="px-6 py-4 text-right">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let emp of employees" class="group transition-colors hover:bg-surface-container-low border-b border-surface-container-high border-opacity-30 last:border-0">
+        <td class="px-6 py-4 flex items-center space-x-4">
+          <div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold font-display shadow-sm cursor-pointer">
+            {{ emp.name.charAt(0) }}
+          </div>
+          <div>
+            <div class="font-display font-semibold text-on-surface">{{ emp.name }}</div>
+            <div class="text-xs text-on-surface-variant mt-0.5">{{ emp.email }}</div>
+          </div>
+        </td>
+        <td class="px-6 py-4 text-on-surface-variant text-sm font-medium">{{ emp.position }}</td>
+        <td class="px-6 py-4 text-on-surface-variant text-sm text-right">{{ emp.age }}</td>
+        <td class="px-6 py-4 text-primary-container text-sm font-semibold text-right">${{ emp.salary | number }}</td>
+        <td class="px-6 py-4 text-right space-x-2">
+          <button class="btn btn-ghost !px-2 !py-1 !min-h-0 text-sm" title="View Profile">
+            <span class="material-icons text-[18px]">account_circle</span>
+          </button>
+          <button class="btn btn-ghost !px-2 !py-1 !min-h-0 text-sm text-on-surface-variant hover:text-primary" title="Edit">
+            <span class="material-icons text-[18px]">edit</span>
+          </button>
+          <button (click)="deleteEmployee(emp.id)" class="btn btn-ghost !px-2 !py-1 !min-h-0 text-sm text-error hover:text-error" title="Delete">
+            <span class="material-icons text-[18px]">delete</span>
+          </button>
+        </td>
+      </tr>
+      
+      <tr *ngIf="employees.length === 0">
+        <td colspan="5" class="px-6 py-12 text-center text-on-surface-variant font-medium">
+          No employees found. Enroll new staff.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

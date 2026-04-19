@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-background text-on-surface font-body;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display text-on-surface;
+  }
+}
+
+@layer components {
+  /* Exact Button definitions from Stitch Design System */
+  .btn {
+    @apply inline-flex items-center justify-center transition-all min-h-[44px] min-w-[44px] px-5 py-2.5 font-medium tracking-wide focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary/20;
+  }
+  
+  .btn-primary {
+    @apply bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-md shadow-md shadow-primary/10 hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5;
+  }
+  
+  .btn-secondary {
+    @apply bg-surface-container-high text-on-surface rounded-md hover:bg-surface-container-highest hover:-translate-y-0.5;
+  }
+  
+  .btn-ghost {
+    @apply bg-transparent text-primary hover:scale-[1.02] rounded-md;
+  }
+
+  /* Exact Badge definitions */
+  .badge {
+    @apply rounded-full px-3 py-1 font-medium text-xs;
+  }
+  .badge-success {
+    @apply bg-primary-fixed text-on-primary-fixed-variant;
+  }
+  .badge-error {
+    @apply bg-error-container text-on-error-container;
+  }
+  .badge-warning {
+    @apply bg-surface-container-highest text-on-surface;
+  }
+
+  /* Status shadow */
+  .glass-card {
+    @apply bg-surface-container-lowest/80 backdrop-blur-3xl;
+  }
+  .ambient-shadow {
+    box-shadow: 0 20px 40px rgba(5, 26, 62, 0.06);
+  }
+}

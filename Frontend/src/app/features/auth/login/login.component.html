@@ -1,0 +1,53 @@
+<div class="fixed inset-0 bg-surface flex items-center justify-center p-4 z-50">
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute -top-[20%] -right-[10%] w-[70vw] h-[70vw] rounded-full bg-primary-fixed/30 blur-3xl mix-blend-multiply"></div>
+    <div class="absolute -bottom-[20%] -left-[10%] w-[60vw] h-[60vw] rounded-full bg-secondary-fixed/30 blur-3xl mix-blend-multiply"></div>
+  </div>
+
+  <div class="w-full max-w-md relative">
+    <div class="glass-card ambient-shadow rounded-2xl p-10 border border-surface-container-high/50">
+      
+      <div class="text-center mb-8">
+        <h1 class="text-3xl font-display font-bold text-primary tracking-tight">Executive Architect</h1>
+        <p class="text-on-surface-variant text-sm mt-3 font-medium">Access your global enterprise hub.</p>
+      </div>
+
+      <div *ngIf="errorMessage" class="mb-4 bg-error-container text-on-error-container p-3 rounded-lg text-sm font-medium">
+        {{ errorMessage }}
+      </div>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <div>
+          <label class="block text-sm font-medium text-on-surface-variant mb-2">Username</label>
+          <div class="relative">
+            <span class="material-icons absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">person</span>
+            <input type="text" formControlName="userName" placeholder="admin" class="w-full bg-surface-container-low border border-surface-container-high focus:border-primary focus:ring-2 focus:ring-primary/20 text-on-surface rounded-lg py-3 pl-12 pr-4 transition-all outline-none"
+                   [ngClass]="{'border-error focus:border-error focus:ring-error/20': loginForm.get('userName')?.invalid && loginForm.get('userName')?.touched}">
+          </div>
+          <div *ngIf="loginForm.get('userName')?.invalid && loginForm.get('userName')?.touched" class="text-error text-xs mt-1">Username is required</div>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <label class="block text-sm font-medium text-on-surface-variant">Password</label>
+            <a href="#" class="text-sm font-semibold text-primary hover:text-primary-container transition">Forgot password?</a>
+          </div>
+          <div class="relative">
+            <span class="material-icons absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">lock</span>
+            <input type="password" formControlName="password" placeholder="••••••••" class="w-full bg-surface-container-low border border-surface-container-high focus:border-primary focus:ring-2 focus:ring-primary/20 text-on-surface rounded-lg py-3 pl-12 pr-4 transition-all outline-none"
+                   [ngClass]="{'border-error focus:border-error focus:ring-error/20': loginForm.get('password')?.invalid && loginForm.get('password')?.touched}">
+          </div>
+          <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-error text-xs mt-1">Password is required</div>
+        </div>
+
+        <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary w-full py-3.5 text-base disabled:opacity-50 disabled:cursor-not-allowed">
+          Authenticate Sequence <span class="material-icons ml-2 text-[20px]">arrow_forward</span>
+        </button>
+      </form>
+
+      <div class="mt-8 text-center text-sm text-on-surface-variant">
+        Requires provisioning? <a routerLink="/register" class="text-primary font-semibold hover:text-primary-container transition">Register</a>
+      </div>
+    </div>
+  </div>
+</div>

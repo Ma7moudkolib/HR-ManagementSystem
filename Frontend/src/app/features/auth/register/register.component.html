@@ -1,0 +1,69 @@
+<div class="fixed inset-0 bg-surface flex items-center justify-center p-4 z-50 overflow-y-auto">
+  <div class="w-full max-w-lg relative py-8">
+    <div class="glass-card ambient-shadow rounded-2xl p-10 border border-surface-container-high/50 mt-10">
+      
+      <div class="text-center mb-8">
+        <h1 class="text-3xl font-display font-bold text-primary tracking-tight">Register Partner</h1>
+        <p class="text-on-surface-variant text-sm mt-3 font-medium">Provision a new account for the enterprise hub.</p>
+      </div>
+
+      <div *ngIf="successMessage" class="mb-4 bg-primary-fixed text-on-primary-fixed-variant p-3 rounded-lg text-sm font-medium text-center">
+        {{ successMessage }}
+      </div>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-5">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-on-surface-variant mb-2">First Name</label>
+            <input type="text" formControlName="firstName" class="w-full bg-surface-container-low border border-surface-container-high focus:border-primary focus:ring-2 focus:ring-primary/20 text-on-surface rounded-lg py-2.5 px-4 transition-all outline-none"
+                   [ngClass]="{'border-error focus:border-error': registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched}">
+            <div *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched" class="text-error text-xs mt-1">Required</div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-on-surface-variant mb-2">Last Name</label>
+            <input type="text" formControlName="lastName" class="w-full bg-surface-container-low border border-surface-container-high focus:border-primary focus:ring-2 focus:ring-primary/20 text-on-surface rounded-lg py-2.5 px-4 transition-all outline-none"
+                   [ngClass]="{'border-error focus:border-error': registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched}">
+            <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched" class="text-error text-xs mt-1">Required</div>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-on-surface-variant mb-2">Username</label>
+          <input type="text" formControlName="userName" class="w-full bg-surface-container-low border border-surface-container-high focus:border-primary focus:ring-2 focus:ring-primary/20 text-on-surface rounded-lg py-2.5 px-4 transition-all outline-none"
+                 [ngClass]="{'border-error focus:border-error': registerForm.get('userName')?.invalid && registerForm.get('userName')?.touched}">
+          <div *ngIf="registerForm.get('userName')?.invalid && registerForm.get('userName')?.touched" class="text-error text-xs mt-1">Required</div>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-on-surface-variant mb-2">Email Address</label>
+          <input type="email" formControlName="email" class="w-full bg-surface-container-low border border-surface-container-high focus:border-primary focus:ring-2 focus:ring-primary/20 text-on-surface rounded-lg py-2.5 px-4 transition-all outline-none"
+                 [ngClass]="{'border-error focus:border-error': registerForm.get('email')?.invalid && registerForm.get('email')?.touched}">
+          <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-error text-xs mt-1">Valid email required</div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-on-surface-variant mb-2">Phone</label>
+            <input type="text" formControlName="phoneNumber" class="w-full bg-surface-container-low border border-surface-container-high focus:border-primary focus:ring-2 focus:ring-primary/20 text-on-surface rounded-lg py-2.5 px-4 transition-all outline-none"
+                   [ngClass]="{'border-error focus:border-error': registerForm.get('phoneNumber')?.invalid && registerForm.get('phoneNumber')?.touched}">
+            <div *ngIf="registerForm.get('phoneNumber')?.invalid && registerForm.get('phoneNumber')?.touched" class="text-error text-xs mt-1">Required</div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-on-surface-variant mb-2">Password</label>
+            <input type="password" formControlName="password" class="w-full bg-surface-container-low border border-surface-container-high focus:border-primary focus:ring-2 focus:ring-primary/20 text-on-surface rounded-lg py-2.5 px-4 transition-all outline-none"
+                   [ngClass]="{'border-error focus:border-error': registerForm.get('password')?.invalid && registerForm.get('password')?.touched}">
+            <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="text-error text-xs mt-1">Min 6 chars</div>
+          </div>
+        </div>
+
+        <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary w-full py-3.5 text-base mt-4 disabled:opacity-50 disabled:cursor-not-allowed">
+          Register Provisioning Profile
+        </button>
+      </form>
+
+      <div class="mt-6 text-center text-sm text-on-surface-variant">
+        Already provisioned? <a routerLink="/login" class="text-primary font-semibold hover:text-primary-container transition">Return to Login</a>
+      </div>
+    </div>
+  </div>
+</div>
