@@ -43,7 +43,11 @@ namespace Service
             var result = await _userManager.CreateAsync(userEntity, userForRegistration.Password!);
 
             if (result.Succeeded)
-                await _userManager.AddToRolesAsync(userEntity, userForRegistration.Roles!);
+            {
+                // Assign default role to new users
+                var roles = userForRegistration.Roles ?? new[] { "User" };
+                await _userManager.AddToRolesAsync(userEntity, roles);
+            }
             return result;
         }
 
