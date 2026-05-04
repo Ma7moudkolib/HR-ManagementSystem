@@ -12,11 +12,8 @@ namespace CompanyEmployees.ContextFactory
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .Build();
-            // var buider = new DbContextOptionsBuilder<RepositoryContext>()
-            //     .UseSqlServer(configuration.GetConnectionString("sqlConnection"),
-            //     b=>b.MigrationsAssembly("CompanyEmployees"));
-                var buider = new DbContextOptionsBuilder<RepositoryContext>()
-                .UseNpgsql(configuration.GetConnectionString("sqlConnection"),
+            var buider = new DbContextOptionsBuilder<RepositoryContext>()
+                .UseSqlServer(configuration.GetConnectionString("sqlConnection"),
                 b=>b.MigrationsAssembly("CompanyEmployees"));
             return new RepositoryContext(buider.Options);
         }
