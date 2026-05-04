@@ -6,49 +6,53 @@ networks:
 
 services:
   hrms-frontend:
-    image: mahmoud1242002/hr-management-system-frontend:latest
+    build:
+      context: ./Frontend
+      dockerfile: ./Dockerfile
     container_name: hrms-frontend
     ports:
-      - "80:80"
+      - "82:80"
     depends_on:
       - hr-system-api
     networks:
       - hr-network
 
   hr-system-api:
-    image: mahmoud1242002/hr-management-system-api:latest
+    build:
+      context: .
+      dockerfile: ./Backend/dockerfile
     container_name: hr-system-api
     ports:
       - "8080:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:8080
-      - ConnectionStrings__sqlConnection=Host=postgres;Port=5432;Database=CompanyEmployees;Username=postgres;Password=postgres
+      - ConnectionStrings__sqlConnection=Server=sqlserver,1433;Database=CompanyEmployeesDB;User Id=sa;Password=YourStrong@Password123;Encrypt=false;TrustServerCertificate=true;
     depends_on:
-      postgres:
+      sqlserver:
         condition: service_healthy
     networks:
       - hr-network
 
-  postgres:
-    image: postgres:alpine
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
     restart: always
-    container_name: postgres
+    container_name: sqlserver
     ports:
-      - "5432:5432"
-    healthcheck:
-        test: ["CMD-SHELL", "pg_isready -U postgres"]
-        interval: 10s
-        timeout: 5s
-        retries: 5
+      - "1433:1433"
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=CompanyEmployees
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong@Password123
     volumes:
-      - postgres-db:/var/lib/postgresql/data
+      - sqlserver-db:/var/opt/mssql
+    healthcheck:
+      test: /opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P "YourStrong@Password123" -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
     networks:
       - hr-network
 
 volumes:
-  postgres-db:
+  sqlserver-db:
