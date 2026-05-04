@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeDto } from '../../../models/employee.model';
-import { MockEmployeeService } from '../../../services/mock-employee.service';
+import { EmployeeService } from '../../../services/employee.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -9,18 +9,40 @@ import { MockEmployeeService } from '../../../services/mock-employee.service';
 })
 export class EmployeeListComponent implements OnInit {
   employees: EmployeeDto[] = [];
+  isLoading: boolean = false;
+  errorMessage: string = '';
 
-  constructor(private employeeService: MockEmployeeService) {}
+  constructor(private employeeService: EmployeeService) {}
 
   ngOnInit(): void {
-    this.employeeService.getEmployees().subscribe(data => {
-      this.employees = data;
+    this.loadEmployees();
+  }
+
+  loadEmployees(): void {
+    this.isLoading = true;
+    this.employeeService.getEmployees().subscribe({
+      next: (data) => {
+        this.employees = data;
+        this.isLoading = false;
+      },
+      error: (err) => {
+        this.errorMessage = 'Failed to load employees: ' + (err.error?.message || err.message);
+        this.isLoading = false;
+      }
     });
   }
 
   deleteEmployee(id: string) {
     if(confirm('Are you sure you want to delete this employee?')) {
-      this.employees = this.employees.filter(e => e.id !== id);
+      this.employeeService.deleteEmployee(id).subscribe({
+        next: () => {
+          this.employees = this.employees.filter(e => e.id !== id);
+        },
+        error: (err) => {
+          this.errorMessage = 'Failed to delete employee: ' + (err.error?.message || err.message);
+        }
+      });
     }
   }
 }
+
